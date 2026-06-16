@@ -63,7 +63,7 @@
             box-shadow: 0 8px 25px rgba(255, 65, 108, 0.7);
         }
 
-        /* المحتوى الرئيسي (مخفي في البداية) */
+        /* المحتوى الرئيسي */
         .main-content {
             display: none;
             opacity: 0;
@@ -160,7 +160,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .reason-card {
@@ -199,6 +199,72 @@
             max-height: 100px;
             margin-top: 15px;
         }
+
+        /* تصميم صندوق كتابة الرد مع العنوان الجانبي */
+        .reply-form {
+          margin: 40px auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          width: 100%;
+          max-width: 650px;
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          width: 100%;
+        }
+
+        .field-label {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+          white-space: nowrap;
+        }
+
+        .reply-textarea {
+          flex: 1;
+          height: 120px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(65, 105, 225, 0.4);
+          border-radius: 15px;
+          color: #fff;
+          padding: 15px;
+          font-size: 1rem;
+          font-family: inherit;
+          resize: none;
+          text-align: right;
+          transition: all 0.3s;
+        }
+
+        .reply-textarea:focus {
+          outline: none;
+          border-color: #ffd700;
+          box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        #form-status {
+          margin-top: 10px;
+          font-weight: bold;
+          color: #00d2ff;
+          font-size: 1.1rem;
+        }
+
+        /* لضمان التناسق التام على شاشات الموبايل الصغيرة */
+        @media (max-width: 600px) {
+          .input-container {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .reply-textarea {
+            width: 100%;
+          }
+        }
     </style>
 </head>
 <body>
@@ -218,7 +284,7 @@
     <div class="main-content" id="mainContent">
         
         <h1 class="title">يا مرحب بأجدع زياد! 🤍</h1>
-        <p class="subtitle">موقع سريع صممتهالك مخصوص عشان أقولك كام حاجة..</p>
+        <p class="subtitle">موقع سريعة صممتهالك مخصوص عشان أقولك كام حاجة..</p>
 
         <div class="message-card">
             <h2>رسالة من القلب ✉️</h2>
@@ -282,9 +348,19 @@
 
         </div>
 
-        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">فالنهاية عاوز اقولك اني بحبك وربنا بس يعلم غلوتك عندي قد اي ✨</p>
-        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">You are the compiler in my life🤍</p>
-        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">صُنع بكل حماس من صديقك الوفي: ادهم محمد ✨</p>
+        <!-- فورم استقبال الردود عبر Formspree بعد السبب الثالث مباشرة -->
+        <form id="ziad-messages" action="https://formspree.io/f/mvznyajp" method="POST" class="reply-form">
+            <div class="input-container">
+                <span class="field-label">رسالة للمصمم🤍</span>
+                <textarea name="message" class="reply-textarea" placeholder="اكتبلي أي حاجة هنا وسيب ردك يا صاحبي... 🤍" required></textarea>
+            </div>
+            <button type="submit" class="btn-surprise" style="font-size: 1.1rem; padding: 12px 35px;" id="submit-btn">إرسال الرد للمبرمج أدهم 🚀</button>
+            <div id="form-status"></div>
+        </form>
+
+        <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">فالنهاية عاوز اقولك اني بحبك وربنا بس يعلم غلوتك عندي قد اي ✨</p>
+        <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">You are the compiler in my life🤍</p>
+        <p style="color: #666; margin-top: 30px; margin-bottom: 30px; font-size: 0.9rem;">صُنع بكل حماس من صديقك الوفي: ادهم محمد ✨</p>
     </div>
 
     <script>
@@ -316,6 +392,55 @@
         // دالة لفتح وإغلاق كروت الأسباب
         function toggleReason(card) {
             card.classList.toggle('active');
+        }
+
+        // كود التعامل مع إرسال الرسالة لجيتهاب بدون الانتقال لصفحة أخرى
+        const form = document.getElementById('ziad-messages');
+        const status = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // منع الصفحة من إعادة التحميل
+                submitBtn.innerText = "جاري الإرسال... ⏳";
+                submitBtn.disabled = true;
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        status.innerHTML = "تم إرسال ردك بنجاح وبسرية تامة يا صاحبي! 🤍";
+                        form.reset(); // تفريغ صندوق الكتابة
+                        submitBtn.innerText = "تم الإرسال ✓";
+                    } else {
+                        status.innerHTML = "❌ حصلت مشكلة أثناء الإرسال، جرب تاني كدا!";
+                        submitBtn.innerText = "إرسال الرد للمبرمج أدهم 🚀";
+                        submitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    status.innerHTML = "❌ عذراً، تأكد من اتصالك بالإنترنت!";
+                    submitBtn.innerText = "إرسال الرد للمبرمج أدهم 🚀";
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // حماية كود الصفحة والملفات من الفحص بكليك يمين وأزرار المطورين لجيتهاب
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; } // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // View Source
         }
     </script>
 </body>
