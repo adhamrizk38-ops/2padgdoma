@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مفاجأة خاصة جداً! 🎉</title>
+    <style>
+        /* إعدادات الخطوط والألوان العامة */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c20, #15102a, #241442);
+            color: #ffffff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* شاشة البداية / التشويق */
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f0c20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .intro-screen h1 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #ffd700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-surprise {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-surprise:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.7);
+        }
+
+        /* المحتوى الرئيسي (مخفي في البداية) */
+        .main-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+
+        .main-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1.title {
+            color: #ff4b2b;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 75, 43, 0.3);
+        }
+
+        .subtitle {
+            color: #bbb;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* كارت الرسالة الشخصية */
+        .message-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .message-card h2 {
+            color: #00d2ff;
+            margin-bottom: 15px;
+        }
+
+        .message-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        /* معرض الصور الذكريات */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffd700;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* الكروت التفاعلية المفاجئة */
+        .reasons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .reason-card {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .reason-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff4b2b;
+        }
+
+        .reason-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reason-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, margin-top 0.3s;
+            color: #00d2ff;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .reason-card.active .reason-content {
+            max-height: 100px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ملف الصوت في الخلفية -->
+    <audio id="bgMusic" loop>
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- شاشة البداية المشوقة -->
+    <div class="intro-screen" id="introScreen">
+        <h1>جاهز للمفاجأة يا صاحبي؟ 👀</h1>
+        <button class="btn-surprise" onclick="revealSurprise()">اضغط هنا واعرف المفاجأة 🚀</button>
+    </div>
+
+    <!-- المحتوى الرئيسي للموقع -->
+    <div class="main-content" id="mainContent">
+        
+        <h1 class="title">يا مرحب بأجدع زياد! 🤍</h1>
+        <p class="subtitle">موقع سريعة صممتهالك مخصوص عشان أقولك كام حاجة..</p>
+
+        <div class="message-card">
+            <h2>رسالة من القلب ✉️</h2>
+            <p>
+                كل سنة وانت طيب واحل 16 سنة لاحل صاحب فالدنيا يمكن دي هدية بسيطة بس جايبهالك بكل حب ونية صافية ويارب تكون عجبتك🤍."
+            </p>
+        </div>
+
+        <h2 class="section-title">شريط ذكريات حياتك 📸</h2>
+        <div class="gallery">
+            
+            <div class="gallery-item">
+                <img src="jpg1.jpg" alt="ذكريات 1">
+                <p>اليوم ده لما عماد قعد بتحايل عليا بتصور معايا وانا رضيت عشانك 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg2.jpg" alt="ذكريات 2">
+                <p>صورة من الأيام الرايقة اللي لازم نكررها في أقرب وقت! ☕</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg3.jpg" alt="ذكريات 3">
+                <p>صورة من الأيام الحلوة اللي كنا بنذاكر فيها! ☕</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg4.jpg" alt="ذكريات 4">
+                <p>صورة من ايام كرونا بس الكمامة كانت ليقة عليك! 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg5.jpg" alt="ذكريات 5">
+                <p>عشان لما اقولك انك كنت بتحبها تقولي لا اومال بتبص عليها لي دلوقتي! 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg6.jpg" alt="ذكريات 6">
+                <p>لا حلوة الضحكة دي حاسسها من ورا قلبك بس كنت غلبان ساعتها! 😂</p>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">ليه أنت بالذات أجدع صاحب وبحبك اكتر من اي حد خلقه ربنا؟ 🤔🤍</h2>
+        <div class="reasons-container">
+            
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الأول 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">لانك مصاحبني عشاني انا مش عشان مصلحة زي حد تاني ممكن يكون جمبك دلوقتي وممكن يكون لا! 🔥</div>
+            </div>
+
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الثاني 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">لانك بتنصحني فاي وقت ومش بتزهق مني لو حد غيرك كان زمانه قال وانا مالي 🤍</div>
+            </div>
+
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الثالث 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">ببساطة.. لأن المواقف بتثبت دايماً إنك أخ مش مجرد صاحب. 🤝</div>
+            </div>
+
+        </div>
+
+        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">فالنهاية عاوز اقولك اني بحبك وربنا بس يعلم غلوتك عندي قد اي ✨</p>
+        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">You are the compiler in my life🤍</p>
+        <p style="color: #666; margin-bottom: 30px; font-size: 0.9rem;">صُنع بكل حماس من صديقك الوفي: ادهم محمد ✨</p>
+    </div>
+
+    <script>
+        // دالة لإخفاء شاشة التشويق وإظهار المفاجأة وتشغيل الصوت
+        function revealSurprise() {
+            // تشغيل ملف الصوت
+            const music = document.getElementById('bgMusic');
+            if (music) {
+                music.play().catch(error => {
+                    console.log("تم حظر التشغيل التلقائي بواسطة المتصفح حتى يتفاعل المستخدم أولاً:", error);
+                });
+            }
+
+            const intro = document.getElementById('introScreen');
+            const main = document.getElementById('mainContent');
+            
+            intro.style.opacity = '0';
+            intro.style.visibility = 'hidden';
+            
+            // إظهار المحتوى الرئيسي بعد اختفاء الشاشة الافتتاحية
+            setTimeout(() => {
+                main.style.display = 'block';
+                // تفعيل الأنيماشين بسلاسة
+                main.offsetHeight; 
+                main.classList.add('show');
+            }, 600);
+        }
+
+        // دالة لفتح وإغلاق كروت الأسباب
+        function toggleReason(card) {
+            card.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
