@@ -276,6 +276,347 @@
 
     <!-- شاشة البداية المشوقة -->
     <div class="intro-screen" id="introScreen">
+        <h1>تعرف لو مكنتش عرفت الاجابة كنت هزعل منك الصراحة؟ 👀</h1>
+        <h2>المهم بقا كل اللي فات دا كان لعب اللي جاي دا بقا الفضايح جاهز؟ 👀</h2>
+        <button class="btn-surprise" onclick="revealSurprise()">اضغط هنا واعرف المفاجأة 🚀</button>
+    </div>
+
+    <!-- المحتوى الرئيسي للموقع -->
+    <div class="main-content" id="mainContent">
+        
+        <h1 class="title">يا مرحب بأجدع زياد! 🤍</h1>
+        <p class="subtitle">موقع سريعة صممتهالك مخصوص عشان أقولك كام حاجة..</p>
+
+        <div class="message-card">
+            <h2>رسالة من القلب ✉️</h2>
+            <p>
+                كل سنة وانت طيب واحل 16 سنة لاحل صاحب فالدنيا يمكن دي هدية بسيطة بس جايبهالك بكل حب ونية صافية ويارب تكون عجبتك🤍."
+            </p>
+        </div>
+
+        <h2 class="section-title">شريط ذكريات حياتك 📸</h2>
+        <div class="gallery">
+            
+            <div class="gallery-item">
+                <img src="jpg1.jpg" alt="ذكريات 1">
+                <p>اليوم ده لما عماد قعد يتحال عليا يتصور معايا وانا رضيت عشانك 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg2.jpg" alt="ذكريات 2">
+                <p>صورة من الأيام الرايقة اللي لازم نكررها في أقرب وقت! ☕</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg3.jpg" alt="ذكريات 3">
+                <p>صورة من الأيام الحلوة اللي كنا بنذاكر فيها! ☕</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg4.jpg" alt="ذكريات 4">
+                <p>صورة من ايام كرونا بس الكمامة كانت ليقة عليك! 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg5.jpg" alt="ذكريات 5">
+                <p>عشان لما اقولك انك كنت بتحبها تقولي لا اومال بتبص عليها لي دلوقتي! 😂</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="jpg6.jpg" alt="ذكريات 6">
+                <p>لا حلوة الضحكة دي حاسسها من ورا قلبك بس كنت غلبان ساعتها! 😂</p>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">ليه أنت بالذات أجدع صاحب وبحبك اكتر من اي حد خلقه ربنا؟ 🤔🤍</h2>
+        <div class="reasons-container">
+            
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الأول 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">لانك مصاحبني عشاني انا مش عشان مصلحة زي حد تاني ممكن يكون جمبك دلوقتي وممكن يكون لا! 🔥</div>
+            </div>
+
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الثاني 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">لانك بتنصحني فاي وقت ومش بتزهق مني لو حد غيرك كان زمانه قال وانا مالي 🤍</div>
+            </div>
+
+            <div class="reason-card" onclick="toggleReason(this)">
+                <div class="reason-title">السبب الثالث 💡 (اضغط هنا لتكتشف)</div>
+                <div class="reason-content">ببساطة.. لأن المواقف بتثبت دايماً إنك أخ مش مجرد صاحب. 🤝</div>
+            </div>
+
+        </div>
+
+        <!-- فورم استقبال الردود عبر Formspree بعد السبب الثالث مباشرة -->
+        <form id="ziad-messages" action="https://formspree.io/f/mvznyajp" method="POST" class="reply-form">
+            <div class="input-container">
+                <span class="field-label">رسالة للمصمم🤍</span>
+                <textarea name="message" class="reply-textarea" placeholder="اكتبلي أي حاجة هنا وسيب ردك يا صاحبي... 🤍" required></textarea>
+            </div>
+            <button type="submit" class="btn-surprise" style="font-size: 1.1rem; padding: 12px 35px;" id="submit-btn">إرسال الرد للمبرمج أدهم 🚀</button>
+            <div id="form-status"></div>
+        </form>
+
+        <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">فالنهاية عاوز اقولك اني بحبك وربنا بس يعلم غلوتك عندي قد اي ✨</p>
+        <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">You are the compiler in my life🤍</p>
+        <p style="color: #666; margin-top: 30px; margin-bottom: 30px; font-size: 0.9rem;">صُنع بكل حماس من صديقك الوفي: ادهم محمد ✨</p>
+    </div>
+
+    <script>
+        // دالة لإخفاء شاشة التشويق وإظهار المفاجأة وتشغيل الصوت
+        function revealSurprise() {
+            // تشغيل ملف الصوت
+            const music = document.getElementById('bgMusic');
+            if (music) {
+                music.play().catch(error => {
+                    console.log("تم حظر التشغيل التلقائي بواسطة المتصفح حتى يتفاعل المستخدم أولاً:", error);
+                });
+            }
+
+            const intro = document.getElementById('introScreen');
+            const main = document.getElementById('mainContent');
+            
+            intro.style.opacity = '0';
+            intro.style.visibility = 'hidden';
+            
+            // إظهار المحتوى الرئيسي بعد اختفاء الشاشة الافتتاحية
+            setTimeout(() => {
+                main.style.display = 'block';
+                // تفعيل الأنيماشين بسلاسة
+                main.offsetHeight; 
+                main.classList.add('show');
+            }, 600);
+        }
+
+        // دالة لفتح وإغلاق كروت الأسباب
+        function toggleReason(card) {
+            card.classList.toggle('active');
+        }
+
+        // كود التعامل مع إرسال الرسالة لجيتهاب بدون الانتقال لصفحة أخرى
+        const form = document.getElementById('ziad-messages');
+        const status = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // منع الصفحة من إعادة التحميل
+                submitBtn.innerText = "جاري الإرسال... ⏳";
+                submitBtn.disabled = true;
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        status.innerHTML = "تم إرسال ردك بنجاح وبسرية تامة يا صاحبي! 🤍";
+                        form.reset(); // تفريغ صندوق الكتابة
+                        submitBtn.innerText = "تم الإرسال ✓";
+                    } else {
+                        status.innerHTML = "❌ حصلت مشكلة أثناء الإرسال، جرب تاني كدا!";
+                        submitBtn.innerText = "إرسال الرد للمبرمج أدهم 🚀";
+                        submitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    status.innerHTML = "❌ عذراً، تأكد من اتصالك بالإنترنت!";
+                    submitBtn.innerText = "إرسال الرد للمبرمج أدهم 🚀";
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // حماية كود الصفحة والملفات من الفحص بكليك يمين وأزرار المطورين لجيتهاب
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; } // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // View Source
+        }
+    </script>
+</body>
+</html>        .message-card h2 {
+            color: #00d2ff;
+            margin-bottom: 15px;
+        }
+
+        .message-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        /* معرض الصور الذكريات */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffd700;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* الكروت التفاعلية المفاجئة */
+        .reasons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .reason-card {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .reason-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff4b2b;
+        }
+
+        .reason-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reason-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, margin-top 0.3s;
+            color: #00d2ff;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .reason-card.active .reason-content {
+            max-height: 100px;
+            margin-top: 15px;
+        }
+
+        /* تصميم صندوق كتابة الرد مع العنوان الجانبي */
+        .reply-form {
+          margin: 40px auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          width: 100%;
+          max-width: 650px;
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          width: 100%;
+        }
+
+        .field-label {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+          white-space: nowrap;
+        }
+
+        .reply-textarea {
+          flex: 1;
+          height: 120px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(65, 105, 225, 0.4);
+          border-radius: 15px;
+          color: #fff;
+          padding: 15px;
+          font-size: 1rem;
+          font-family: inherit;
+          resize: none;
+          text-align: right;
+          transition: all 0.3s;
+        }
+
+        .reply-textarea:focus {
+          outline: none;
+          border-color: #ffd700;
+          box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        #form-status {
+          margin-top: 10px;
+          font-weight: bold;
+          color: #00d2ff;
+          font-size: 1.1rem;
+        }
+
+        /* لضمان التناسق التام على شاشات الموبايل الصغيرة */
+        @media (max-width: 600px) {
+          .input-container {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .reply-textarea {
+            width: 100%;
+          }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ملف الصوت في الخلفية -->
+    <audio id="bgMusic" loop>
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- شاشة البداية المشوقة -->
+    <div class="intro-screen" id="introScreen">
         <h1>جاهز للمفاجأة يا صاحبي؟ 👀</h1>
         <button class="btn-surprise" onclick="revealSurprise()">اضغط هنا واعرف المفاجأة 🚀</button>
     </div>
